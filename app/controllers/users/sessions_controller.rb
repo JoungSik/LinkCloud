@@ -29,7 +29,7 @@ class Users::SessionsController < Devise::SessionsController
   private
 
   def respond_with(resource, _opts = {})
-    render json: UserSerializer.new(resource).serializable_hash[:data][:attributes], status: :ok
+    render json: resource.as_json(except: [:jti]), status: :ok
   end
 
   def respond_to_on_destroy
