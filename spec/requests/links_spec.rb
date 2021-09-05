@@ -23,7 +23,7 @@ RSpec.describe "/links", type: :request do
     {
       name: "google",
       url: "https://www.google.com",
-      user_id: user.id
+      tag_list: "온라인, 웹사이트"
     }
   }
 
@@ -62,6 +62,13 @@ RSpec.describe "/links", type: :request do
         post links_url, params: { link: valid_attributes }, headers: auth_headers, as: :json
         expect(response).to have_http_status(:created)
       end
+
+      it "renders a JSON response with the new link with tag list" do
+        post links_url, params: { link: valid_attributes }, headers: auth_headers, as: :json
+        json = JSON.parse(response.body)
+        expect(json["tag_list"]).not_to be_blank
+        expect(response).to have_http_status(:created)
+      end
     end
 
     context "with invalid parameters" do
@@ -83,12 +90,15 @@ RSpec.describe "/links", type: :request do
       let(:new_attributes) {
         {
           name: "google",
-          url: "https://www.google.com"
+          url: "https://www.google.com",
+          tag_list: "온라인"
         }
       }
 
       it "renders a JSON response with the link" do
         patch "/links/#{link.id}", params: { link: new_attributes }, headers: auth_headers, as: :json
+        json = JSON.parse(response.body)
+        expect(json["tag_list"]).to eq(["온라인"])
         expect(response).to have_http_status(:ok)
       end
     end
@@ -99,7 +109,8 @@ RSpec.describe "/links", type: :request do
       let(:invalid_attributes) {
         {
           name: "daum",
-          url: "https://www.daum.net"
+          url: "https://www.daum.net",
+          tag_list: "온라인, 웹사이트"
         }
       }
 

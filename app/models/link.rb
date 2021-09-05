@@ -1,4 +1,6 @@
 class Link < ApplicationRecord
+  acts_as_taggable_on :tags
+
   belongs_to :user
 
   validates_uniqueness_of :name

@@ -11,10 +11,6 @@ DatabaseCleaner.strategy = :truncation
 # then, whenever you need to clean the DB
 DatabaseCleaner.clean
 
-user = User.create(name: "example", email: "example@example.com", password: "qwer1234")
-link = Link.create(name: "naver", url: "https://www.naver.com", user_id: user.id)
-link = Link.create(name: "daum", url: "https://www.daum.net", user_id: user.id)
-
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
 # run as spec files by default. This means that files in spec/support that end
@@ -69,4 +65,8 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+
+  user = User.create(name: "example", email: "example@example.com", password: "qwer1234")
+  Link.create(name: "naver", url: "https://www.naver.com", user_id: user.id)
+  Link.create(name: "daum", url: "https://www.daum.net", user_id: user.id)
 end
