@@ -6,6 +6,14 @@ require File.expand_path('../config/environment', __dir__)
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
+require 'database_cleaner/active_record'
+DatabaseCleaner.strategy = :truncation
+# then, whenever you need to clean the DB
+DatabaseCleaner.clean
+
+user = User.create(name: "example", email: "example@example.com", password: "qwer1234")
+link = Link.create(name: "naver", url: "https://www.naver.com", user_id: user.id)
+link = Link.create(name: "daum", url: "https://www.daum.net", user_id: user.id)
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
