@@ -4,7 +4,7 @@ class LinksController < ApplicationController
 
   # GET /links
   def index
-    @links = Link.all
+    @links = current_user.links
     render json: @links.as_json
   end
 
