@@ -37,6 +37,6 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ghcr.io/JoungSik/LinkCloud:latest
+          tags: ghcr.io/JoungSik/linkcloud:latest
           build-args: |
             MASTER_KEY=${{ secrets.MASTER_KEY }}
