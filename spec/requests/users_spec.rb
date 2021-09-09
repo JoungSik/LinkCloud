@@ -3,19 +3,15 @@ require 'rails_helper'
 RSpec.describe "Users", type: :request do
   let(:valid_attributes) {
     {
-      "user": {
-        email: "example@example.com",
-        password: "qwer1234"
-      }
+      email: "example@example.com",
+      password: "qwer1234"
     }
   }
 
   let(:invalid_attributes) {
     {
-      "user": {
-        email: "example@example.com",
-        password: "password"
-      }
+      email: "example@example.com",
+      password: "password"
     }
   }
 
