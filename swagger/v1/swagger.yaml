@@ -1,0 +1,37 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/login":
+    post:
+      summary: Login
+      tags:
+      - user
+      parameters: []
+      responses:
+        ok:
+          description: Login successful
+        unauthorized:
+          description: Login error
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: tjstlr2010@gmail.com
+                password:
+                  type: string
+                  example: qwer1234
+              required:
+              - email
+              - password
+servers:
+- url: http://{defaultHost}
+  variables:
+    defaultHost:
+      default: localhost:3000

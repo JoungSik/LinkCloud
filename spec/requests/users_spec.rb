@@ -1,29 +1,27 @@
 require 'rails_helper'
+require 'swagger_helper'
 
-RSpec.describe "Users", type: :request do
-  let(:valid_attributes) {
-    {
-      email: "example@example.com",
-      password: "qwer1234"
-    }
-  }
+describe 'Users API' do
+  path '/login' do
+    post 'Login' do
+      tags 'user'
+      consumes 'application/json'
+      parameter name: :session, in: :body, schema: {
+        type: :object,
+        properties: {
+          email: { type: :string, example: "tjstlr2010@gmail.com" },
+          password: { type: :string, example: "qwer1234" }
+        },
+        required: %w[email password]
+      }
 
-  let(:invalid_attributes) {
-    {
-      email: "example@example.com",
-      password: "password"
-    }
-  }
+      response :ok, 'Login successful' do
+        run_test!
+      end
 
-  describe "POST /login" do
-    it "Login" do
-      post user_session_url, params: valid_attributes
-      expect(response).to have_http_status(200)
-    end
-
-    it "Login Error" do
-      post user_session_url, params: invalid_attributes
-      expect(response).to have_http_status(401)
+      response :unauthorized, 'Login error' do
+        run_test!
+      end
     end
   end
 end
