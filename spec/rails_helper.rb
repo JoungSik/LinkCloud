@@ -65,8 +65,4 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
-
-  user = User.create(name: "example", email: "example@example.com", password: "qwer1234")
-  Link.create(name: "naver", url: "https://www.naver.com", user_id: user.id)
-  Link.create(name: "daum", url: "https://www.daum.net", user_id: user.id)
 end
