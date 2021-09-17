@@ -4,17 +4,70 @@ info:
   title: API V1
   version: v1
 paths:
+  "/links":
+    get:
+      summary: GET Links
+      tags:
+      - Link
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        description: Bearer {key}
+        schema:
+          type: string
+      responses:
+        '200':
+          description: 성공
+        '401':
+          description: 실패
+    post:
+      summary: CREATE Links
+      tags:
+      - Link
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        description: Bearer {key}
+        schema:
+          type: string
+      responses:
+        '201':
+          description: 성공
+        '401':
+          description: 인증 실패
+        '422':
+          description: 파라메터 부족으로 실패
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: 구글
+                url:
+                  type: string
+                  example: https://google.com
+                tag_list:
+                  type: string
+                  example: 개발자
+              required:
+              - name
+              - url
   "/login":
     post:
       summary: Login
       tags:
-      - user
+      - User
       parameters: []
       responses:
-        ok:
-          description: Login successful
-        unauthorized:
-          description: Login error
+        '200':
+          description: 로그인 성공
+        '401':
+          description: 로그인 실패
       requestBody:
         content:
           application/json:
@@ -31,7 +84,5 @@ paths:
               - email
               - password
 servers:
-- url: http://{defaultHost}
-  variables:
-    defaultHost:
-      default: localhost:3000
+- url: http://localhost:3000
+- url: https://linkcloud-rails.herokuapp.com
