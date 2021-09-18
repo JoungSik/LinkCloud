@@ -10,7 +10,12 @@ class LinksController < ApplicationController
 
   # GET /links/1
   def show
-    render json: @link.as_json
+    if @link.nil?
+      render json: @link, status: :not_found
+    else
+      render json: @link.as_json
+    end
+
   end
 
   # POST /links
@@ -25,7 +30,9 @@ class LinksController < ApplicationController
 
   # PATCH/PUT /links/1
   def update
-    if @link.update(link_params)
+    if @link.nil?
+      render json: @link, status: :not_found
+    elsif @link.update(link_params)
       render json: @link.as_json(:include => { :user => { :only => [:id, :name, :email] } }), status: :ok
     else
       render json: @link.errors, status: :unprocessable_entity
@@ -34,14 +41,18 @@ class LinksController < ApplicationController
 
   # DELETE /links/1
   def destroy
-    @link.destroy
+    if @link.nil?
+      render json: @link, status: :not_found
+    else
+      @link.destroy
+    end
   end
 
   private
 
   # Use callbacks to share common setup or constraints between actions.
   def set_link
-    @link = Link.find(params[:id])
+    @link = Link.find_by_id params[:id]
   end
 
   # Only allow a list of trusted parameters through.
