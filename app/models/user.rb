@@ -9,7 +9,7 @@ class User < ApplicationRecord
 
   has_many :links, dependent: :delete_all
 
-  validates_uniqueness_of :name
+  validates :name, presence: true, uniqueness: true
 
   def as_json(options = {})
     super(options)

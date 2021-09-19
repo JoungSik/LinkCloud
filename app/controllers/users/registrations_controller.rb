@@ -67,14 +67,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def respond_with(resource, _opts = {})
     register_success && return if resource.persisted?
 
-    register_failed
+    register_failed resource
   end
 
   def register_success
-    render json: { message: "회원가입에 성공했습니다." }
+    render json: { message: "회원가입에 성공했습니다." }, status: :created
   end
 
-  def register_failed
-    render json: { message: "회원가입에 실패했습니다." }
+  def register_failed(resource)
+    render json: { message: resource.errors.full_messages.join(", ") }, status: :bad_request
   end
 end

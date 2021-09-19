@@ -145,6 +145,36 @@ paths:
           description: 인증 실패
         '404':
           description: 링크 찾기 실패
+  "/users":
+    post:
+      summary: Register
+      tags:
+      - User
+      parameters: []
+      responses:
+        '201':
+          description: 회원가입 성공
+        '400':
+          description: 회원가입 실패 - 파라메터 부족
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: 김정식
+                email:
+                  type: string
+                  example: tjstlr2010@gmail.com
+                password:
+                  type: string
+                  example: qwer1234
+              required:
+              - name
+              - email
+              - password
   "/login":
     post:
       summary: Login
