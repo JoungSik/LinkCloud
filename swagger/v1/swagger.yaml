@@ -38,7 +38,7 @@ paths:
         '401':
           description: 인증 실패
         '422':
-          description: 파라메터 부족으로 실패
+          description: 실패 - 값 부족
       requestBody:
         content:
           application/json:
