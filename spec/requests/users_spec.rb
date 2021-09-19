@@ -27,7 +27,7 @@ describe 'Users API' do
         end
       end
 
-      response '400', '회원가입 실패 - 파라메터 부족' do
+      response '400', '회원가입 실패' do
         let(:body) { { email: 'example2@example.com', password: 'qwer1234' } }
         run_test! do |response|
           expect(response).to have_http_status(:bad_request)

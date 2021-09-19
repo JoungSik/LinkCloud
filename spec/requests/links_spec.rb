@@ -1,10 +1,11 @@
 require 'rails_helper'
 require 'devise/jwt/test_helpers'
 
-RSpec.describe "Links API", type: :request do
+RSpec.describe 'Links API', type: :request do
   before(:each) do
     @user = FactoryBot.create(:user)
     @link = FactoryBot.create(:link, user_id: @user.id)
+    @update_link = FactoryBot.create(:link, user_id: @user.id, name: 'example2')
 
     @headers = { 'Accept' => 'application/json', 'Content-Type' => 'application/json' }
     @auth_headers = Devise::JWT::TestHelpers.auth_headers(@headers, @user)
@@ -26,7 +27,9 @@ RSpec.describe "Links API", type: :request do
 
       response '401', '실패' do
         let(:'Authorization') { '' }
-        run_test!
+        run_test! do |response|
+          expect(response).to have_http_status(:unauthorized)
+        end
       end
     end
 
@@ -37,16 +40,16 @@ RSpec.describe "Links API", type: :request do
       parameter name: :body, in: :body, schema: {
         type: :object,
         properties: {
-          name: { type: :string, example: "구글" },
-          url: { type: :string, example: "https://google.com" },
-          tag_list: { type: :string, example: "개발자" },
+          name: { type: :string, example: '구글' },
+          url: { type: :string, example: 'https://google.com' },
+          tag_list: { type: :string, example: '개발자' },
         },
         required: %w[name url]
       }
 
       response '201', '성공' do
         let(:'Authorization') { @auth_headers['Authorization'] }
-        let(:body) { { name: "구글", url: "https://google.com", tag_list: "개발자, FE" } }
+        let(:body) { { name: '구글', url: 'https://google.com', tag_list: '개발자, FE' } }
         run_test! do |response|
           expect(response).to have_http_status(:created)
         end
@@ -54,12 +57,22 @@ RSpec.describe "Links API", type: :request do
 
       response '401', '인증 실패' do
         let(:'Authorization') { '' }
-        run_test!
+        run_test! do |response|
+          expect(response).to have_http_status(:unauthorized)
+        end
       end
 
-      response '422', '파라메터 부족으로 실패' do
+      response '422', '실패 - 중복 값' do
         let(:'Authorization') { @auth_headers['Authorization'] }
-        let(:body) { { name: "example", url: "https://google.com", tag_list: "개발자, FE" } }
+        let(:body) { { name: @link.name } }
+        run_test! do |response|
+          expect(response).to have_http_status(:unprocessable_entity)
+        end
+      end
+
+      response '422', '실패 - 값 부족' do
+        let(:'Authorization') { @auth_headers['Authorization'] }
+        let(:body) { { name: 'example3' } }
         run_test! do |response|
           expect(response).to have_http_status(:unprocessable_entity)
         end
@@ -86,13 +99,17 @@ RSpec.describe "Links API", type: :request do
       response '401', '인증 실패' do
         let(:'Authorization') { '' }
         let(:id) { @link.id }
-        run_test!
+        run_test! do |response|
+          expect(response).to have_http_status(:unauthorized)
+        end
       end
 
       response '404', '링크 찾기 실패' do
         let(:'Authorization') { @auth_headers['Authorization'] }
         let(:id) { '999999' }
-        run_test!
+        run_test! do |response|
+          expect(response).to have_http_status(:not_found)
+        end
       end
     end
 
@@ -104,9 +121,9 @@ RSpec.describe "Links API", type: :request do
       parameter name: :body, in: :body, schema: {
         type: :object,
         properties: {
-          name: { type: :string, example: "구글" },
-          url: { type: :string, example: "https://google.com" },
-          tag_list: { type: :string, example: "개발자" },
+          name: { type: :string, example: '구글' },
+          url: { type: :string, example: 'https://google.com' },
+          tag_list: { type: :string, example: '개발자' },
         },
         required: %w[name url]
       }
@@ -114,7 +131,7 @@ RSpec.describe "Links API", type: :request do
       response '200', '성공' do
         let(:'Authorization') { @auth_headers['Authorization'] }
         let(:id) { @link.id }
-        let(:body) { { name: "네이버", url: "https://naver.com" } }
+        let(:body) { { name: '네이버', url: 'https://naver.com' } }
         run_test! do |response|
           expect(response).to have_http_status(:ok)
           expect(JSON.parse(response.body)['url']).to match('https://naver.com')
@@ -124,14 +141,27 @@ RSpec.describe "Links API", type: :request do
       response '401', '인증 실패' do
         let(:'Authorization') { '' }
         let(:id) { @link.id }
-        run_test!
+        run_test! do |response|
+          expect(response).to have_http_status(:unauthorized)
+        end
       end
 
       response '404', '링크 찾기 실패' do
         let(:'Authorization') { @auth_headers['Authorization'] }
         let(:id) { '999999' }
-        let(:body) { { name: "구글", url: "https://google.com", tag_list: "개발자" } }
-        run_test!
+        let(:body) { { name: '구글', url: 'https://google.com', tag_list: '개발자' } }
+        run_test! do |response|
+          expect(response).to have_http_status(:not_found)
+        end
+      end
+
+      response '422', '업데이트 실패 - 중복 값' do
+        let(:'Authorization') { @auth_headers['Authorization'] }
+        let(:id) { @update_link.id }
+        let(:body) { { name: 'example' } }
+        run_test! do |response|
+          expect(response).to have_http_status(:unprocessable_entity)
+        end
       end
     end
 
@@ -152,13 +182,17 @@ RSpec.describe "Links API", type: :request do
       response '401', '인증 실패' do
         let(:'Authorization') { '' }
         let(:id) { @link.id }
-        run_test!
+        run_test! do |response|
+          expect(response).to have_http_status(:unauthorized)
+        end
       end
 
       response '404', '링크 찾기 실패' do
         let(:'Authorization') { @auth_headers['Authorization'] }
         let(:id) { '999999' }
-        run_test!
+        run_test! do |response|
+          expect(response).to have_http_status(:not_found)
+        end
       end
     end
   end

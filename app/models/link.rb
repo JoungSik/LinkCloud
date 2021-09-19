@@ -3,7 +3,8 @@ class Link < ApplicationRecord
 
   belongs_to :user
 
-  validates_uniqueness_of :name, scope: :user
+  validates :name, presence: true, uniqueness: { scope: :user }
+  validates :url, presence: true
 
   def as_json(options = {})
     super(options)

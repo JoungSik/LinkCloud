@@ -104,6 +104,8 @@ paths:
           description: 인증 실패
         '404':
           description: 링크 찾기 실패
+        '422':
+          description: 업데이트 실패 - 중복 값
       requestBody:
         content:
           application/json:
@@ -155,7 +157,7 @@ paths:
         '201':
           description: 회원가입 성공
         '400':
-          description: 회원가입 실패 - 파라메터 부족
+          description: 회원가입 실패
       requestBody:
         content:
           application/json:
