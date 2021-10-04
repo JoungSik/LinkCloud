@@ -10,13 +10,4 @@ class User < ApplicationRecord
   has_many :links, dependent: :delete_all
 
   validates :name, presence: true, uniqueness: true
-
-  def as_json(options = {})
-    super(options)
-      .merge(
-        { 'created_at' => created_at.strftime('%Y-%m-%d'),
-          'updated_at' => updated_at.strftime('%Y-%m-%d')
-        }
-      )
-  end
 end

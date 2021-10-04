@@ -45,18 +45,20 @@ paths:
             schema:
               type: object
               properties:
-                name:
-                  type: string
-                  example: 구글
-                url:
-                  type: string
-                  example: https://google.com
-                tag_list:
-                  type: string
-                  example: 개발자
+                link:
+                  name:
+                    type: string
+                    example: 구글
+                  url:
+                    type: string
+                    example: https://google.com
+                  tag_list:
+                    type: string
+                    example: 개발자
               required:
               - name
               - url
+        required: true
   "/links/{id}":
     get:
       summary: GET Link

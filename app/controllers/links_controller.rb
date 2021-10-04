@@ -5,24 +5,17 @@ class LinksController < ApplicationController
   # GET /links
   def index
     @links = current_user.links
-    render json: @links.as_json
   end
 
   # GET /links/1
   def show
-    if @link.nil?
-      render json: @link, status: :not_found
-    else
-      render json: @link.as_json
-    end
-
   end
 
   # POST /links
   def create
     @link = Link.new(link_params)
     if @link.save
-      render json: @link.as_json(:include => { :user => { :only => [:id, :name, :email] } }), status: :created
+      render json: @link, status: :created
     else
       render json: @link.errors, status: :unprocessable_entity
     end
@@ -30,10 +23,8 @@ class LinksController < ApplicationController
 
   # PATCH/PUT /links/1
   def update
-    if @link.nil?
-      render json: @link, status: :not_found
-    elsif @link.update(link_params)
-      render json: @link.as_json(:include => { :user => { :only => [:id, :name, :email] } }), status: :ok
+    if @link.update(link_params)
+      render json: @link, status: :ok
     else
       render json: @link.errors, status: :unprocessable_entity
     end
@@ -41,22 +32,18 @@ class LinksController < ApplicationController
 
   # DELETE /links/1
   def destroy
-    if @link.nil?
-      render json: @link, status: :not_found
-    else
-      @link.destroy
-    end
+    @link.destroy
   end
 
   private
 
   # Use callbacks to share common setup or constraints between actions.
   def set_link
-    @link = Link.find_by_id params[:id]
+    @link = Link.find params[:id]
   end
 
   # Only allow a list of trusted parameters through.
   def link_params
-    params.require(:link).permit(:name, :url, :tag_list).merge({ user: current_user })
+    params.require(:link).permit(:name, :url, :tag_list).reverse_merge({ user: current_user })
   end
 end

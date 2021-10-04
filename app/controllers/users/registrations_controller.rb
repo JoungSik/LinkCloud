@@ -71,7 +71,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def register_success
-    render json: { message: "회원가입에 성공했습니다." }, status: :created
+    render 'users/registrations/create', status: :created
   end
 
   def register_failed(resource)

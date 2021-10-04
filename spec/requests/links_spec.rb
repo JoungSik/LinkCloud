@@ -15,6 +15,7 @@ RSpec.describe 'Links API', type: :request do
     get 'GET Links' do
       tags 'Link'
       consumes 'application/json'
+      produces 'application/json'
       parameter name: 'Authorization', in: :header, type: :string, required: true, description: 'Bearer {key}'
 
       response '200', '성공' do
@@ -36,20 +37,23 @@ RSpec.describe 'Links API', type: :request do
     post 'CREATE Links' do
       tags 'Link'
       consumes 'application/json'
+      produces 'application/json'
       parameter name: 'Authorization', in: :header, type: :string, required: true, description: 'Bearer {key}'
-      parameter name: :body, in: :body, schema: {
+      parameter name: :body, in: :body, required: true, schema: {
         type: :object,
         properties: {
-          name: { type: :string, example: '구글' },
-          url: { type: :string, example: 'https://google.com' },
-          tag_list: { type: :string, example: '개발자' },
+          link: {
+            name: { type: :string, example: '구글' },
+            url: { type: :string, example: 'https://google.com' },
+            tag_list: { type: :string, example: '개발자' },
+          }
         },
         required: %w[name url]
       }
 
       response '201', '성공' do
         let(:'Authorization') { @auth_headers['Authorization'] }
-        let(:body) { { name: '구글', url: 'https://google.com', tag_list: '개발자, FE' } }
+        let!(:body) { { link: { name: '구글', url: 'https://google.com', tag_list: '개발자, FE' } } }
         run_test! do |response|
           expect(response).to have_http_status(:created)
         end
@@ -84,6 +88,7 @@ RSpec.describe 'Links API', type: :request do
     get 'GET Link' do
       tags 'Link'
       consumes 'application/json'
+      produces 'application/json'
       parameter name: 'Authorization', in: :header, type: :string, required: true, description: 'Bearer {key}'
       parameter name: :id, in: :path, type: :string
 
@@ -92,7 +97,8 @@ RSpec.describe 'Links API', type: :request do
         let(:id) { @link.id }
         run_test! do |response|
           expect(response).to have_http_status(:ok)
-          expect(JSON.parse(response.body)).to eql @link.as_json
+          json = JSON.parse(response.body)
+          expect(json['id']).to eql @link.id
         end
       end
 
@@ -116,6 +122,7 @@ RSpec.describe 'Links API', type: :request do
     patch 'UPDATE Link' do
       tags 'Link'
       consumes 'application/json'
+      produces 'application/json'
       parameter name: 'Authorization', in: :header, type: :string, required: true, description: 'Bearer {key}'
       parameter name: :id, in: :path, type: :string
       parameter name: :body, in: :body, schema: {
@@ -167,7 +174,7 @@ RSpec.describe 'Links API', type: :request do
 
     delete 'DELETE Link' do
       tags 'Link'
-      consumes 'application/json'
+      produces 'application/json'
       parameter name: 'Authorization', in: :header, type: :string, required: true, description: 'Bearer {key}'
       parameter name: :id, in: :path, type: :string
 

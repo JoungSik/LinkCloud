@@ -10,6 +10,7 @@ describe 'Users API' do
     post 'Register' do
       tags 'User'
       consumes 'application/json'
+      produces 'application/json'
       parameter name: :body, in: :body, schema: {
         type: :object,
         properties: {
@@ -29,8 +30,12 @@ describe 'Users API' do
 
       response '400', '회원가입 실패' do
         let(:body) { { email: 'example2@example.com', password: 'qwer1234' } }
+
         run_test! do |response|
+          json = JSON.parse(response.body)
+
           expect(response).to have_http_status(:bad_request)
+          expect(json['message']).to eq("Name can't be blank")
         end
       end
     end
@@ -40,6 +45,7 @@ describe 'Users API' do
     post 'Login' do
       tags 'User'
       consumes 'application/json'
+      produces 'application/json'
       parameter name: :body, in: :body, schema: {
         type: :object,
         properties: {

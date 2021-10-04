@@ -30,7 +30,7 @@ class Users::SessionsController < Devise::SessionsController
   private
 
   def respond_with(resource, _opts = {})
-    render json: resource.as_json(except: [:jti]), status: :ok
+    render 'users/sessions/create', status: :ok
   end
 
   def respond_to_on_destroy
