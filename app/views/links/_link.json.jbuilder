@@ -1,1 +1,2 @@
-json.extract! link, :id, :name, :url, :tag_list, :created_at, :updated_at
+json.extract! link, :id, :name, :url, :created_at, :updated_at
+json.tag_list link.tag_list.join(', ')
