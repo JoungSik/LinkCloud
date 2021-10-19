@@ -35,7 +35,7 @@ describe 'Users API' do
           json = JSON.parse(response.body)
 
           expect(response).to have_http_status(:bad_request)
-          expect(json['message']).to eq("Name can't be blank")
+          expect(json['message']).to eq I18n.t('activerecord.errors.messages.blank')
         end
       end
     end

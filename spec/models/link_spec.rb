@@ -10,7 +10,7 @@ RSpec.describe Link, type: :model do
     it 'Name already' do
       link = Link.create({ name: @link.name, url: @link.url, user_id: @user.id })
       link.validate
-      expect(link.errors.full_messages).to include("Name has already been taken")
+      expect(link.errors.messages[:name]).to include I18n.t('activerecord.errors.messages.taken')
     end
   end
 end

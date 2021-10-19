@@ -75,6 +75,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def register_failed(resource)
-    render json: { message: resource.errors.full_messages.join(", ") }, status: :bad_request
+    render json: { message: resource.errors.messages.values.uniq.join(", ") }, status: :bad_request
   end
 end
