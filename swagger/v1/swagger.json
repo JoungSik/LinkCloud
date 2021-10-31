@@ -1,0 +1,334 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "API V1",
+    "version": "v1"
+  },
+  "components": {
+    "schemas": {
+      "new_user": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "김정식"
+          },
+          "email": {
+            "type": "string",
+            "example": "tjstlr2010@gmail.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "qwer1234"
+          }
+        },
+        "required": [
+          "name",
+          "email",
+          "password"
+        ]
+      },
+      "user": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "tjstlr2010@gmail.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "qwer1234"
+          }
+        },
+        "required": [
+          "name",
+          "email",
+          "password"
+        ]
+      },
+      "link": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "구글"
+          },
+          "url": {
+            "type": "string",
+            "example": "https://google.com"
+          },
+          "tag_list": {
+            "type": "string",
+            "example": "개발자"
+          }
+        },
+        "required": [
+          "name",
+          "url"
+        ]
+      }
+    }
+  },
+  "paths": {
+    "/links": {
+      "get": {
+        "summary": "GET Links",
+        "tags": [
+          "Link"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string",
+            "required": true,
+            "description": "Bearer {key}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "성공"
+          },
+          "401": {
+            "description": "실패"
+          }
+        }
+      },
+      "post": {
+        "summary": "CREATE Links",
+        "tags": [
+          "Link"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string",
+            "required": true,
+            "description": "Bearer {key}"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/components/schemas/link"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "성공"
+          },
+          "401": {
+            "description": "인증 실패"
+          },
+          "422": {
+            "description": "실패 - 값 부족"
+          }
+        }
+      }
+    },
+    "/links/{id}": {
+      "get": {
+        "summary": "GET Link",
+        "tags": [
+          "Link"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string",
+            "required": true,
+            "description": "Bearer {key}"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "성공"
+          },
+          "401": {
+            "description": "인증 실패"
+          },
+          "404": {
+            "description": "링크 찾기 실패"
+          }
+        }
+      },
+      "patch": {
+        "summary": "UPDATE Link",
+        "tags": [
+          "Link"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string",
+            "required": true,
+            "description": "Bearer {key}"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/components/schemas/link"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "성공"
+          },
+          "401": {
+            "description": "인증 실패"
+          },
+          "404": {
+            "description": "링크 찾기 실패"
+          },
+          "422": {
+            "description": "업데이트 실패 - 중복 값"
+          }
+        }
+      },
+      "delete": {
+        "summary": "DELETE Link",
+        "tags": [
+          "Link"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string",
+            "required": true,
+            "description": "Bearer {key}"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "성공"
+          },
+          "401": {
+            "description": "인증 실패"
+          },
+          "404": {
+            "description": "링크 찾기 실패"
+          }
+        }
+      }
+    },
+    "/users": {
+      "post": {
+        "summary": "Register",
+        "tags": [
+          "User"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/components/schemas/new_user"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "회원가입 성공"
+          },
+          "400": {
+            "description": "회원가입 실패"
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "summary": "Login",
+        "tags": [
+          "User"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/components/schemas/user"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "로그인 성공"
+          },
+          "401": {
+            "description": "로그인 실패"
+          }
+        }
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "https://linkcloud-rails.herokuapp.com"
+    }
+  ]
+}

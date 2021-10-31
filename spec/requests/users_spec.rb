@@ -11,15 +11,7 @@ describe 'Users API' do
       tags 'User'
       consumes 'application/json'
       produces 'application/json'
-      parameter name: :body, in: :body, schema: {
-        type: :object,
-        properties: {
-          name: { type: :string, example: '김정식' },
-          email: { type: :string, example: 'tjstlr2010@gmail.com' },
-          password: { type: :string, example: 'qwer1234' }
-        },
-        required: %w[name email password]
-      }
+      parameter name: :body, in: :body, schema: { '$ref' => '#/components/schemas/new_user' }
 
       response '201', '회원가입 성공' do
         let(:body) { { name: '김정식', email: 'example2@example.com', password: 'qwer1234' } }
@@ -46,14 +38,7 @@ describe 'Users API' do
       tags 'User'
       consumes 'application/json'
       produces 'application/json'
-      parameter name: :body, in: :body, schema: {
-        type: :object,
-        properties: {
-          email: { type: :string, example: 'tjstlr2010@gmail.com' },
-          password: { type: :string, example: 'qwer1234' }
-        },
-        required: %w[email password]
-      }
+      parameter name: :body, in: :body, schema: { '$ref' => '#/components/schemas/user' }
 
       response '200', '로그인 성공', save_request_example: :valid_body do
         let(:body) { { email: 'example@example.com', password: 'qwer1234' } }
