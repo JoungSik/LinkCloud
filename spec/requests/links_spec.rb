@@ -39,17 +39,7 @@ RSpec.describe 'Links API', type: :request do
       consumes 'application/json'
       produces 'application/json'
       parameter name: 'Authorization', in: :header, type: :string, required: true, description: 'Bearer {key}'
-      parameter name: :body, in: :body, required: true, schema: {
-        type: :object,
-        properties: {
-          link: {
-            name: { type: :string, example: '구글' },
-            url: { type: :string, example: 'https://google.com' },
-            tag_list: { type: :string, example: '개발자' },
-          }
-        },
-        required: %w[name url]
-      }
+      parameter name: :body, in: :body, schema: { '$ref' => '#/components/schemas/link' }
 
       response '201', '성공' do
         let(:'Authorization') { @auth_headers['Authorization'] }
@@ -125,15 +115,7 @@ RSpec.describe 'Links API', type: :request do
       produces 'application/json'
       parameter name: 'Authorization', in: :header, type: :string, required: true, description: 'Bearer {key}'
       parameter name: :id, in: :path, type: :string
-      parameter name: :body, in: :body, schema: {
-        type: :object,
-        properties: {
-          name: { type: :string, example: '구글' },
-          url: { type: :string, example: 'https://google.com' },
-          tag_list: { type: :string, example: '개발자' },
-        },
-        required: %w[name url]
-      }
+      parameter name: :body, in: :body, schema: { '$ref' => '#/components/schemas/link' }
 
       response '200', '성공' do
         let(:'Authorization') { @auth_headers['Authorization'] }

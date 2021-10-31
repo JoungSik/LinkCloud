@@ -15,17 +15,44 @@ RSpec.configure do |config|
   # document below. You can override this behavior by adding a swagger_doc tag to the
   # the root example_group in your specs, e.g. describe '...', swagger_doc: 'v2/swagger.json'
   config.swagger_docs = {
-    'v1/swagger.yaml' => {
-      openapi: '3.0.1',
+    'v1/swagger.json' => {
+      swagger: '2.0',
       info: {
         title: 'API V1',
         version: 'v1'
       },
+      components: {
+        schemas: {
+          new_user: {
+            type: :object,
+            properties: {
+              name: { type: :string, example: '김정식' },
+              email: { type: :string, example: 'tjstlr2010@gmail.com' },
+              password: { type: :string, example: 'qwer1234' }
+            },
+            required: %w[name email password]
+          },
+          user: {
+            type: :object,
+            properties: {
+              email: { type: :string, example: 'tjstlr2010@gmail.com' },
+              password: { type: :string, example: 'qwer1234' }
+            },
+            required: %w[name email password]
+          },
+          link: {
+            type: :object,
+            properties: {
+              name: { type: :string, example: '구글' },
+              url: { type: :string, example: 'https://google.com' },
+              tag_list: { type: :string, example: '개발자' },
+            },
+            required: %w[name url]
+          }
+        }
+      },
       paths: {},
       servers: [
-        {
-          url: 'http://localhost:3000'
-        },
         {
           url: 'https://linkcloud-rails.herokuapp.com',
         }
@@ -37,5 +64,5 @@ RSpec.configure do |config|
   # The swagger_docs configuration option has the filename including format in
   # the key, this may want to be changed to avoid putting yaml in json files.
   # Defaults to json. Accepts ':json' and ':yaml'.
-  config.swagger_format = :yaml
+  config.swagger_format = :json
 end
