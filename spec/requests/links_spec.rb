@@ -5,7 +5,6 @@ RSpec.describe 'Links API', type: :request do
   before(:each) do
     @user = FactoryBot.create(:user)
     @link = FactoryBot.create(:link, user_id: @user.id)
-    @update_link = FactoryBot.create(:link, user_id: @user.id, name: 'example2')
 
     @headers = { 'Accept' => 'application/json', 'Content-Type' => 'application/json' }
     @auth_headers = Devise::JWT::TestHelpers.auth_headers(@headers, @user)
@@ -21,8 +20,11 @@ RSpec.describe 'Links API', type: :request do
       response '200', '성공' do
         let(:'Authorization') { @auth_headers['Authorization'] }
         run_test! do |response|
+          json = JSON.parse(response.body, symbolize_names: true)
           expect(response).to have_http_status(:ok)
-          expect(JSON.parse(response.body).size).to eql @user.links.size
+          json.each do |link|
+            expect(link.keys).to include(:id, :name, :url, :description)
+          end
         end
       end
 
@@ -43,9 +45,15 @@ RSpec.describe 'Links API', type: :request do
 
       response '201', '성공' do
         let(:'Authorization') { @auth_headers['Authorization'] }
-        let!(:body) { { link: { name: '구글', url: 'https://google.com', tag_list: '개발자, FE' } } }
+        let!(:body) { { link: { name: '구글', url: 'https://google.com', description: '구글 홈페이지', tag_list: '개발자, FE' } } }
         run_test! do |response|
+          json = JSON.parse(response.body, symbolize_names: true)
           expect(response).to have_http_status(:created)
+          expect(json.keys).to include(:id, :name, :url, :description)
+          expect(json[:name]).to eq '구글'
+          expect(json[:url]).to eq 'https://google.com'
+          expect(json[:description]).to eq '구글 홈페이지'
+          expect(json[:tag_list]).to eq %w[개발자 FE]
         end
       end
 
@@ -53,22 +61,6 @@ RSpec.describe 'Links API', type: :request do
         let(:'Authorization') { '' }
         run_test! do |response|
           expect(response).to have_http_status(:unauthorized)
-        end
-      end
-
-      response '422', '실패 - 중복 값' do
-        let(:'Authorization') { @auth_headers['Authorization'] }
-        let(:body) { { name: @link.name } }
-        run_test! do |response|
-          expect(response).to have_http_status(:unprocessable_entity)
-        end
-      end
-
-      response '422', '실패 - 값 부족' do
-        let(:'Authorization') { @auth_headers['Authorization'] }
-        let(:body) { { name: 'example3' } }
-        run_test! do |response|
-          expect(response).to have_http_status(:unprocessable_entity)
         end
       end
     end
@@ -86,9 +78,9 @@ RSpec.describe 'Links API', type: :request do
         let(:'Authorization') { @auth_headers['Authorization'] }
         let(:id) { @link.id }
         run_test! do |response|
+          json = JSON.parse(response.body, symbolize_names: true)
           expect(response).to have_http_status(:ok)
-          json = JSON.parse(response.body)
-          expect(json['id']).to eql @link.id
+          expect(json.keys).to include(:id, :name, :url, :description)
         end
       end
 
@@ -122,8 +114,11 @@ RSpec.describe 'Links API', type: :request do
         let(:id) { @link.id }
         let(:body) { { name: '네이버', url: 'https://naver.com' } }
         run_test! do |response|
+          json = JSON.parse(response.body, symbolize_names: true)
           expect(response).to have_http_status(:ok)
-          expect(JSON.parse(response.body)['url']).to match('https://naver.com')
+          expect(json.keys).to include(:id, :name, :url, :description)
+          expect(json[:name]).to eq '네이버'
+          expect(json[:url]).to eq 'https://naver.com'
         end
       end
 
@@ -141,15 +136,6 @@ RSpec.describe 'Links API', type: :request do
         let(:body) { { name: '구글', url: 'https://google.com', tag_list: '개발자' } }
         run_test! do |response|
           expect(response).to have_http_status(:not_found)
-        end
-      end
-
-      response '422', '업데이트 실패 - 중복 값' do
-        let(:'Authorization') { @auth_headers['Authorization'] }
-        let(:id) { @update_link.id }
-        let(:body) { { name: 'example' } }
-        run_test! do |response|
-          expect(response).to have_http_status(:unprocessable_entity)
         end
       end
     end

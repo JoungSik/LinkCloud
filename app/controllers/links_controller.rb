@@ -44,6 +44,6 @@ class LinksController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def link_params
-    params.require(:link).permit(:name, :url, :tag_list).reverse_merge({ user: current_user })
+    params.require(:link).permit(:name, :url, :description, :tag_list).reverse_merge({ user: current_user })
   end
 end
