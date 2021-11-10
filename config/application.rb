@@ -15,5 +15,20 @@ module LinkCloud
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
+    config.time_zone = 'Seoul'
+    config.active_record.default_timezone = :utc
+    # config.eager_load_paths << Rails.root.join("extras")
+
+    config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
+    config.i18n.default_locale = :ko
+
+    # Don't generate system test files.
+    config.generators.assets = false
+    config.generators.helper = false
+
+    config.generators do |g|
+      g.test_framework :rspec, fixture: true
+      g.fixture_replacement :factory_bot, dir: 'spec/factories'
+    end
   end
 end

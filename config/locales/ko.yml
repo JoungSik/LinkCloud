@@ -1,5 +1,5 @@
-en:
-  hello: "Hello world"
+ko:
+  hello: "안녕 세계!"
   activerecord:
     errors:
       format: '%{message}'
