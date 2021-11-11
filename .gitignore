@@ -291,3 +291,9 @@ db/schema.rb
 .idea
 
 # End of https://www.toptal.com/developers/gitignore/api/osx,rubymine,visualstudiocode,rails,ruby
+/public/packs
+/public/packs-test
+/node_modules
+/yarn-error.log
+yarn-debug.log*
+.yarn-integrity
