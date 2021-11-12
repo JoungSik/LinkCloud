@@ -13,5 +13,7 @@ Rails.application.routes.draw do
                  sessions: 'v1/users/sessions',
                  registrations: 'v1/users/registrations'
                }
+
+    resources :links
   end
 end
