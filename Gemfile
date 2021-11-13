@@ -28,6 +28,8 @@ gem 'devise-jwt'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
+gem 'acts-as-taggable-on'
+
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 gem 'rack-cors'
 
