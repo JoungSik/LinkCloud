@@ -1,1 +1,1 @@
-json.partial! "v1_links/v1_link", v1_link: @v1_link
+json.partial! "v1/links/link", link: @link
