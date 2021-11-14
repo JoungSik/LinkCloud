@@ -29,7 +29,7 @@ ENV RAILS_MASTER_KEY $MASTER_KEY
 
 COPY . /workspace
 
-RUN bundle exec rake assets:precompile
+RUN bundle exec rails assets:precompile
 
 EXPOSE 3000
 CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
