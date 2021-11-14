@@ -29,6 +29,7 @@ ENV RAILS_MASTER_KEY $MASTER_KEY
 
 COPY . /workspace
 
+RUN yarn global add webpack@5.4.3
 RUN bundle exec rails assets:precompile
 
 EXPOSE 3000
