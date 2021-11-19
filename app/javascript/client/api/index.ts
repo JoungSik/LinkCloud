@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 import { UserType } from '../models/user';
 
-const baseUrl = "http://link.joungsik.com/v1/";
+const baseUrl = "http://localhost:3000/v1/";
 
 const instance = axios.create({
     baseURL: baseUrl,
@@ -33,6 +33,7 @@ export const requests = {
 };
 
 export const User = {
+    register: (user: UserType) => instance.post('users', user),
     login: (user: UserType) => instance.post('login', user),
     logout: () => instance.delete('logout'),
 }

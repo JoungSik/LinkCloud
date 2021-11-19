@@ -31,6 +31,7 @@ const Login = () => {
     const cancelRef = useRef<HTMLButtonElement>(null);
 
     const { register, handleSubmit, formState: { errors } } = useForm<UserType>();
+    const onRegister = () => history.push('/register');
     const onSubmit: SubmitHandler<UserType> = data => mutation.mutate(data);
 
     const queryClient = useQueryClient();
@@ -56,8 +57,6 @@ const Login = () => {
                 queryClient.invalidateQueries('user');
             },
         });
-
-    // const onSubmit = () =>
 
     useEffect(() => {
         if (storedValue) {
@@ -86,6 +85,7 @@ const Login = () => {
                         </FormControl>
                         <Stack spacing={6}>
                             <Button type={'submit'} colorScheme={'blue'} variant={'solid'} isLoading={mutation.isLoading}>로그인</Button>
+                            <Button type={'button'} variant={'solid'} onClick={onRegister}>회원가입</Button>
                         </Stack>
                     </Stack>
                 </Flex>
