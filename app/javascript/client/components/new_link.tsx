@@ -60,10 +60,9 @@ const NewLinkBox = () => {
 
     return (
         <>
-            <Box maxW="sm" borderWidth="1px" borderRadius="lg" overflow="hidden">
-                <Flex p={6} flex={1} align={'center'} justify={'center'}>
-                    <Button colorScheme="teal" size="lg" onClick={onOpen}>링크 추가</Button>
-                </Flex>
+            <Box minW="3xs" maxW="sm" borderWidth="1px" borderRadius="lg" overflow="hidden"
+                 display={'flex'} alignItems={'center'} justifyContent={'center'} p={6}>
+                <Button colorScheme="teal" size="lg" onClick={onOpen}>링크 추가</Button>
             </Box>
 
             <Modal isOpen={isOpen} onClose={onClose}>
