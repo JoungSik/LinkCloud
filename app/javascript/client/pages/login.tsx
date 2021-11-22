@@ -74,7 +74,7 @@ const Login = () => {
                             <FormLabel>이메일</FormLabel>
                             <Input type="email" {...register('email', {
                                 required: true,
-                                pattern: /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/i
+                                pattern: /^\w+@[a-zA-Z_]+?\.[a-zA-Z]*$/i
                             })} />
                             <FormErrorMessage>{errors.email?.type === 'required' ? '이메일을 입력해주세요.' : '이메일 형식을 지켜주세요.'}</FormErrorMessage>
                         </FormControl>
