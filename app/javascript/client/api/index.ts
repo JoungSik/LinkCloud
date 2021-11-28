@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 import { UserType } from '../models/user';
 
-const baseUrl = "http://link.joungsik.com/v1/";
+const baseUrl = "https://link.joungsik.com/v1/";
 
 const instance = axios.create({
     baseURL: baseUrl,
