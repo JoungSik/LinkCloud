@@ -81,10 +81,10 @@ const NewLinkBox = () => {
                             <Input placeholder="URL" {...register('url', { required: true })} />
                             <FormErrorMessage>{errors.url && '주소를 입력해주세요.'}</FormErrorMessage>
                         </FormControl>
-                        <FormControl id="tag_list" mt={2}>
-                            <FormLabel>태그</FormLabel>
-                            <Input placeholder="Frontend, Backend" {...register('tag_list')} />
-                        </FormControl>
+                        {/*<FormControl id="tag_list" mt={2}>*/}
+                        {/*    <FormLabel>태그</FormLabel>*/}
+                        {/*    <Input placeholder="Frontend, Backend" {...register('tag_list')} />*/}
+                        {/*</FormControl>*/}
                     </ModalBody>
                     <ModalFooter>
                         <Button variant="ghost" mr={3} onClick={onClose}>취소</Button>
