@@ -11,6 +11,7 @@ class V1::LinksController < ApplicationController
 
   def create
     @link = Link.new(link_params)
+    @link.tags_as_string = params[:tag_list]
     if @link.save
       render json: @link, status: :created
     else
