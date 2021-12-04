@@ -5,8 +5,7 @@ ruby '3.0.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 6.0.4', '>= 6.0.4.1'
-# Use postgresql as the database for Active Record
-gem 'pg', '>= 0.18', '< 2.0'
+gem 'mysql2'
 # Use Puma as the app server
 gem 'puma', '~> 4.1'
 # Use SCSS for stylesheets
@@ -28,7 +27,7 @@ gem 'devise-jwt'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
-gem 'acts-as-taggable-on'
+gem 'gutentag', '~> 2.6'
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 gem 'rack-cors'
