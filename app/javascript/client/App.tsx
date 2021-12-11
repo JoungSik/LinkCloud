@@ -9,21 +9,21 @@ import useLocalStorage from './utils/storage';
 const queryClient = new QueryClient();
 
 const App = () => {
-    const { storedValue } = useLocalStorage('user');
-    const [isLoggedIn, setIsLoggedIn] = useState(() => !!storedValue);
+  const { storedValue } = useLocalStorage('user');
+  const [isLoggedIn, setIsLoggedIn] = useState(() => !!storedValue);
 
-    useEffect(() => {
-        setIsLoggedIn(!!storedValue);
-    }, [storedValue]);
+  useEffect(() => {
+    setIsLoggedIn(!!storedValue);
+  }, [storedValue]);
 
-    return (
-        <QueryClientProvider client={queryClient}>
-            <ChakraProvider theme={theme}>
-                <Routers isLoggedIn={isLoggedIn} />
-            </ChakraProvider>
-            <ReactQueryDevtools initialIsOpen={false} />
-        </QueryClientProvider>
-    )
+  return (
+    <QueryClientProvider client={queryClient}>
+      <ChakraProvider theme={theme}>
+        <Routers isLoggedIn={isLoggedIn} />
+      </ChakraProvider>
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
+  )
 };
 
 export default App;
