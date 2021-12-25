@@ -14,6 +14,7 @@ Rails.application.routes.draw do
                  registrations: 'v1/users/registrations'
                }
 
+    get 'tags', to: 'tags#index'
     resources :links
   end
 end
