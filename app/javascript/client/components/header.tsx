@@ -25,7 +25,7 @@ const Header = () => {
   const logout = () => User.logout().then(() => setStoredValue(null));
 
   return (
-    <Box as={'header'} position={'sticky'} top={0}>
+    <Box as={'header'} position={'sticky'} top={0} marginBottom={4}>
       <Flex minH={'60px'} py={{ base: 2 }} px={{ base: 4 }}
             bg={useColorModeValue('white', 'gray.800')} color={useColorModeValue('gray.600', 'white')}
             borderBottom={1} borderStyle={'solid'} borderColor={useColorModeValue('gray.200', 'gray.900')}
