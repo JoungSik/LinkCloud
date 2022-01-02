@@ -22,8 +22,7 @@ import { LinkType } from '../models/link';
 import useLocalStorage from '../utils/storage';
 import { Tag } from '../api/tag';
 import { TagType } from '../models/tag';
-import Select from 'react-select';
-import SelectTag, { SelectTagProps, TagOption } from './select_tag';
+import SelectTag, { TagOption } from './select_tag';
 
 const NewLinkBox = () => {
   const queryClient = useQueryClient();
@@ -34,7 +33,7 @@ const NewLinkBox = () => {
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const { register, handleSubmit, formState: { errors }, reset } = useForm<LinkType>();
+  const { register, setValue, handleSubmit, formState: { errors }, reset } = useForm<LinkType>();
 
   const mutation = useMutation(
     link => Link.createLink(storedValue.authorization, link), {
@@ -62,6 +61,10 @@ const NewLinkBox = () => {
     }
   );
 
+  const checkKeyDown = (e) => {
+    if (e.code === 'Enter') e.preventDefault();
+  };
+
   const onSubmit: SubmitHandler<LinkType> = data => mutation.mutate(data);
 
   useEffect(() => {
@@ -80,7 +83,7 @@ const NewLinkBox = () => {
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent as={'form'} onSubmit={handleSubmit(onSubmit)}>
+        <ModalContent as={'form'} onSubmit={handleSubmit(onSubmit)} onKeyDown={(e) => checkKeyDown(e)}>
           <ModalHeader>링크 추가</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
@@ -96,8 +99,7 @@ const NewLinkBox = () => {
             </FormControl>
             <FormControl id="tag_list" mt={2}>
               <FormLabel>태그</FormLabel>
-              <SelectTag tags={tags} />
-              {/*<Input placeholder="Frontend, Backend" {...register('tag_list')} />*/}
+              <SelectTag tags={tags} setTags={(tagList) => setValue("tag_list", tagList)} />
             </FormControl>
           </ModalBody>
           <ModalFooter>
