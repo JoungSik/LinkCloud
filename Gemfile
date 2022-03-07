@@ -27,6 +27,12 @@ gem "stimulus-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 
+# Bootstrap rubygem for Rails/Sprockets/Hanami/etc [https://github.com/twbs/bootstrap-rubygem]
+gem 'bootstrap', '~> 5.1.3'
+
+# Integrate SassC-Ruby with Rails! [https://github.com/sass/sassc-rails]
+gem 'sassc-rails'
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
 
