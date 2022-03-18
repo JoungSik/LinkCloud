@@ -1,35 +1,35 @@
 <div class="col-md-4 col-sm-12 my-3 mx-auto">
   <div class="card p-3">
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-    <h1 class="h3 mb-3 text-center">회원가입</h1>
+      <h1 class="h3 mb-3 text-center">회원가입</h1>
 
-    <%= render "users/shared/error_messages", resource: resource %>
+      <%= render "users/shared/error_messages", resource: resource %>
 
-    <div class="form-floating mb-3">
-      <%= f.text_field :name, autocomplete: "name", class: "form-control" %>
-      <%= f.label :name, "이름" %>
-    </div>
+      <div class="form-floating mb-3">
+        <%= f.text_field :name, autocomplete: "name", class: "form-control" %>
+        <%= f.label :name, "이름" %>
+      </div>
 
-    <div class="form-floating mb-3">
-      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
-      <%= f.label :email, "이메일" %>
-    </div>
+      <div class="form-floating mb-3">
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
+        <%= f.label :email, "이메일" %>
+      </div>
 
-    <div class="form-floating mb-3">  
-      <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
-      <%= f.label :password, "비밀번호" + "#{@minimum_password_length ? " (최소 #{@minimum_password_length}문자)" : "" }" %>
-    </div>
+      <div class="form-floating mb-3">  
+        <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
+        <%= f.label :password, "비밀번호" + "#{@minimum_password_length ? " (최소 #{@minimum_password_length}문자)" : "" }" %>
+      </div>
 
-    <div class="form-floating mb-3">
-      <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
-      <%= f.label :password_confirmation, "비밀번호 재입력" %>
-    </div>
+      <div class="form-floating mb-3">
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
+        <%= f.label :password_confirmation, "비밀번호 재입력" %>
+      </div>
 
-    <div class="actions">
-      <%= f.submit "회원가입", class: "w-100 btn btn-lg btn-primary mb-3" %>
-    </div>
-  <% end %>
+      <div class="actions">
+        <%= f.submit "회원가입", class: "w-100 btn btn-lg btn-primary mb-3" %>
+      </div>
+    <% end %>
 
-  <%= render "users/shared/links" %>
+    <%= render "users/shared/links" %>
   </div>
 </div>
