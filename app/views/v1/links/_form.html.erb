@@ -1,0 +1,36 @@
+<%= form_with(model: link) do |f| %>
+  <% if link.errors.any? %>
+    <div style="color: red">
+      <h2>
+        <%= link.errors.count %> 개의 에러가 발생했습니다.
+      </h2>
+
+      <ul>
+        <% link.errors.each do |error| %>
+          <li>
+            <%= error.full_message %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-floating mb-3">
+    <%= f.text_field :name, autocomplete: "name", class: "form-control" %>
+    <%= f.label :name, "이름" %>
+  </div>
+
+  <div class="form-floating mb-3">
+    <%= f.text_field :url, autocomplete: "url", class: "form-control" %>
+    <%= f.label :url, "주소" %>
+  </div>
+
+  <div class="form-floating mb-3">
+    <%= f.text_area :description, autocomplete: "description", class: "form-control" %>
+    <%= f.label :description, "설명" %>
+  </div>
+
+  <div>
+    <%= f.submit %>
+  </div>
+<% end %>
