@@ -1,23 +1,27 @@
 <div class="col-md-6 col-sm-12 my-3">
   <%= form_with(model: link) do |f| %>
     <% if link.errors.any? %>
-      <% link.errors.each do |error| %>
-        <div class="alert alert-warning" role="alert"><%= error.message %></div>
-      <% end %>
+      <div>
+        <% link.errors.each do |error| %>
+          <div class="alert alert-warning" role="alert">
+            <%= error.message %>
+          </div>
+        <% end %>
+      </div>
     <% end %>
 
     <div class="form-floating mb-3">
-      <%= f.text_field :name, class: "form-control" %>
+      <%= f.text_field :name, placeholder: "이름", class: "form-control" %>
       <%= f.label :name, "이름" %>
     </div>
 
     <div class="form-floating mb-3">
-      <%= f.text_field :url, class: "form-control" %>
+      <%= f.text_field :url, placeholder: "주소", class: "form-control" %>
       <%= f.label :url, "주소" %>
     </div>
 
     <div class="form-floating mb-3">
-      <%= f.text_area :description, class: "form-control" %>
+      <%= f.text_area :description, placeholder: "설명", class: "form-control" %>
       <%= f.label :description, "설명" %>
     </div>
 

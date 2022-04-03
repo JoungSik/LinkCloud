@@ -7,5 +7,7 @@ ko:
           attributes:
             name:
               taken: "이미 존재하는 이름 입니다."
+              blank: "이름은 필수 입력 항목 입니다."
             url:
-              taken: "이미 존재하는 링크 입니다."
+              taken: "이미 존재하는 주소 입니다."
+              blank: "주소는 필수 입력 항목 입니다."
