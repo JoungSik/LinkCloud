@@ -1,2 +1,11 @@
 ko:
   hello: "안녕 세계"
+  activerecord:
+    errors:
+      models:
+        link:
+          attributes:
+            name:
+              taken: "이미 존재하는 이름 입니다."
+            url:
+              taken: "이미 존재하는 이름 입니다."
