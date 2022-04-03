@@ -5,7 +5,8 @@
         <%= link_to link.name, link.url, target: "_blank", class: "link-dark" %>
       </h5>
       <p class="card-text"><%= link.try(:description) %></p>
-      <%= link_to "링크 수정", link, class: "btn btn-primary" %>
+      <%= link_to "링크 수정", edit_link_path(link), class: "btn btn-primary" %>
+      <%= link_to "링크 삭제", link, class: "btn btn-danger", data: { "turbo-method": :delete, "turbo-confirm": "정말로 삭제 하시나요?" } %>
     </div>
   </div>
 </div>
