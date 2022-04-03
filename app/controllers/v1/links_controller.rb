@@ -24,7 +24,7 @@ class V1::LinksController < V1::ApplicationController
     @link = Link.new(link_params)
     respond_to do |format|
       if @link.save
-        format.html { redirect_to links_path, notice: "Link was successfully created." }
+        format.html { redirect_to links_path, notice: "링크 생성에 성공 했습니다." }
         format.json { render :show, status: :created, location: @link }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -37,7 +37,7 @@ class V1::LinksController < V1::ApplicationController
   def update
     respond_to do |format|
       if @link.update(link_params)
-        format.html { redirect_to links_path, notice: "Link was successfully updated." }
+        format.html { redirect_to links_path, notice: "링크 수정에 성공 했습니다." }
         format.json { render :show, status: :ok, location: @link }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -51,7 +51,7 @@ class V1::LinksController < V1::ApplicationController
     @link.destroy
 
     respond_to do |format|
-      format.html { redirect_to links_url, notice: "Link was successfully destroyed." }
+      format.html { redirect_to links_url, notice: "링크 삭제에 성공 했습니다." }
       format.json { head :no_content }
     end
   end
