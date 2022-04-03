@@ -1,0 +1,11 @@
+<p class="mb-3">
+  <%= notice %>
+</p>
+
+<div class="row row-cols-1 row-cols-md-3 g-4 mb-3">
+  <% @links.each do |link| %>
+    <%= render link %>
+  <% end %>
+</div>
+
+<%= link_to "링크 추가", new_link_path %>
