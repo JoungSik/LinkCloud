@@ -38,8 +38,7 @@ jobs:
 
       - name: Deploy Docker image
         uses: hmanzur/actions-aws-eb@v1.0.0
-        run: |
-          cd deploy
+        run: cd deploy
         with:
           command: 'deploy'
         env:
