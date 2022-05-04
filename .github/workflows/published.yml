@@ -14,7 +14,6 @@ jobs:
     permissions:
       contents: read
       packages: write
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -35,13 +34,28 @@ jobs:
           tags: ghcr.io/joungsik/linkcloud:latest
           build-args: |
             MASTER_KEY=${{ secrets.MASTER_KEY }}
-
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        
       - name: Deploy Docker image
-        uses: hmanzur/actions-aws-eb@v1.0.0
-        run: |
-          cd deploy
+        uses: actions/setup-python@v3
         with:
-          command: 'deploy'
+          python-version: '3.7'
+      - run: |
+          cd deploy
+          curl -O https://bootstrap.pypa.io/get-pip.py
+          python get-pip.py --user
+          pip install awsebcli --upgrade --user
+          eb --version
+          eb init Linkcloud-env
+          eb deploy
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
