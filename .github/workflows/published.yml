@@ -34,15 +34,7 @@ jobs:
           tags: ghcr.io/joungsik/linkcloud:latest
           build-args: |
             MASTER_KEY=${{ secrets.MASTER_KEY }}
-  deploy:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-        
+
       - name: Deploy Docker image
         uses: actions/setup-python@v3
         with:
