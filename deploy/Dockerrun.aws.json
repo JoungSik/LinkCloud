@@ -1,0 +1,18 @@
+{
+  "AWSEBDockerrunVersion": "1",
+  "Authentication": {
+    "Bucket": "elasticbeanstalk-ap-northeast-2-639284126125",
+    "Key": "dockercfg"
+  },
+  "Image": {
+    "Name": "ghcr.io/joungsik/linkcloud:latest",
+    "Update": "true"
+  },
+  "Ports": [
+    {
+      "ContainerPort": "3000",
+      "HostPort": 80
+    }
+  ],
+  "Logging": "/var/log/nginx"
+}
