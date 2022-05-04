@@ -37,10 +37,15 @@ jobs:
             MASTER_KEY=${{ secrets.MASTER_KEY }}
 
       - name: Deploy Docker image
-        uses: hmanzur/actions-aws-eb@v1.0.0
-        run: cd deploy
+        uses: actions/setup-python@v3
         with:
-          command: 'deploy'
+          python-version: '3.7'
+          cache: 'pip'
+      - run: |
+          pip install awsebcli --upgrade --user
+          eb --version
+          cd deploy
+          eb deploy
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
