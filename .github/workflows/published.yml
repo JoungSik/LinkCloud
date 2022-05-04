@@ -40,7 +40,7 @@ jobs:
           python-version: '3.7'
       - run: |
           mkdir -p ~/.aws
-          echo "[default]
+          echo "[eb-cli]
           aws_access_key_id = ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_access_key = ${{ secrets.AWS_SECRET_KEY_ID }}" > ~/.aws/credentials 
           
