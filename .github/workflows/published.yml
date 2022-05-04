@@ -34,21 +34,16 @@ jobs:
           tags: ghcr.io/joungsik/linkcloud:latest
           build-args: |
             MASTER_KEY=${{ secrets.MASTER_KEY }}
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
       - name: Deploy Docker image
         uses: actions/setup-python@v3
         with:
           python-version: '3.7'
       - run: |
-          curl https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip -o awscliv2.zip
-          unzip awscliv2.zip
-          sudo ./aws/install
-          aws configure --profile eb-cli
+          mkdir -p ~/.aws
+          echo "[default]
+          aws_access_key_id = ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_access_key = ${{ secrets.AWS_SECRET_KEY_ID }}" > ~/.aws/credentials 
+          
           cd deploy
           curl -O https://bootstrap.pypa.io/get-pip.py
           python get-pip.py --user
