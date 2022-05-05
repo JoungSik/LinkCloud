@@ -42,7 +42,7 @@ jobs:
           mkdir -p ~/.aws
           echo "[eb-cli]
           aws_access_key_id = ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws_secret_access_key = ${{ secrets.AWS_SECRET_KEY_ID }}" > ~/.aws/credentials 
+          aws_secret_access_key = ${{ secrets.AWS_SECRET_ACCESS_KEY }}" > ~/.aws/credentials 
           
           cd deploy
           curl -O https://bootstrap.pypa.io/get-pip.py
