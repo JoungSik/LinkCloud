@@ -1,13 +1,13 @@
 branch-defaults:
   default:
-    environment: Linkcloud-env
+    environment: Linkcloud-prod
 environment-defaults:
-  Linkcloud-env:
+  Linkcloud-prod:
     branch: null
     repository: null
 global:
   application_name: linkcloud
-  default_ec2_keyname: null
+  default_ec2_keyname: aws-eb
   default_platform: Docker running on 64bit Amazon Linux 2
   default_region: ap-northeast-2
   include_git_submodules: true
