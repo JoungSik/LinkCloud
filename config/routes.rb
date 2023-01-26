@@ -11,7 +11,5 @@ Rails.application.routes.draw do
                passwords: "users/passwords",
              }
 
-  scope module: :v1 do
-    resources :links
-  end
+  resources :links
 end

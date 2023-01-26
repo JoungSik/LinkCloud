@@ -1,4 +1,5 @@
-class V1::LinksController < V1::ApplicationController
+class LinksController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_link, only: %i[ show edit update destroy ]
 
   # GET /links or /links.json
@@ -22,6 +23,7 @@ class V1::LinksController < V1::ApplicationController
   # POST /links or /links.json
   def create
     @link = Link.new(link_params)
+
     respond_to do |format|
       if @link.save
         format.html { redirect_to links_path, notice: "링크 생성에 성공 했습니다." }
