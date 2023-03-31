@@ -2,6 +2,12 @@
   <%= f.input :name, label: "이름" %>
   <%= f.input :url, label: "주소", placeholder: "http:://" %>
   <%= f.input :description, label: "설명" %>
+
+  <%= f.simple_fields_for :taggings do |p| %>
+    <%= p.input :tag_id, label: "분류", collection: Tag.all, as: :radio_buttons,
+                item_label_class: "mx-2", item_wrapper_class: 'btn', include_hidden: false %>
+  <% end %>
+
   <div>
     <%= link_to "목록으로 돌아가기", links_path, class: "btn btn-secondary" %>
     <%= f.button :submit, "저장", class: "btn btn-success" %>
