@@ -1,33 +1,10 @@
-<div class="col-md-6 col-sm-12 my-3">
-  <%= form_with(model: link) do |f| %>
-    <% if link.errors.any? %>
-      <div>
-        <% link.errors.each do |error| %>
-          <div class="alert alert-warning" role="alert">
-            <%= error.message %>
-          </div>
-        <% end %>
-      </div>
-    <% end %>
+<%= simple_form_for @link, html: { class: "col-md-6 col-sm-12 my-3" } do |f| %>
+  <%= f.input :name, label: "이름" %>
+  <%= f.input :url, label: "주소", placeholder: "http:://" %>
+  <%= f.input :description, label: "설명" %>
+  <div>
+    <%= link_to "목록으로 돌아가기", links_path, class: "btn btn-secondary" %>
+    <%= f.button :submit, "저장", class: "btn btn-success" %>
+  </div>
 
-    <div class="form-floating mb-3">
-      <%= f.text_field :name, placeholder: "이름", class: "form-control" %>
-      <%= f.label :name, "이름" %>
-    </div>
-
-    <div class="form-floating mb-3">
-      <%= f.text_field :url, placeholder: "주소", class: "form-control" %>
-      <%= f.label :url, "주소" %>
-    </div>
-
-    <div class="form-floating mb-3">
-      <%= f.text_area :description, placeholder: "설명", class: "form-control" %>
-      <%= f.label :description, "설명" %>
-    </div>
-
-    <div>
-      <%= link_to "목록으로 돌아가기", links_path, class: "btn btn-secondary" %>
-      <%= f.submit "저장", class: "btn btn-success" %>
-    </div>
-  <% end %>
-</div>
+<% end %>
