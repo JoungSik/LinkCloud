@@ -4,7 +4,7 @@ class LinksController < ApplicationController
 
   # GET /links or /links.json
   def index
-    @links = Link.all
+    @links = Link.includes(:tags)
   end
 
   # GET /links/1 or /links/1.json
@@ -14,6 +14,7 @@ class LinksController < ApplicationController
   # GET /links/new
   def new
     @link = Link.new
+    @link.taggings.build
   end
 
   # GET /links/1/edit
@@ -54,6 +55,7 @@ class LinksController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def link_params
-    params.require(:link).permit(:name, :url, :description).merge(user: current_user)
+    params.require(:link).permit(:name, :url, :description, taggings_attributes: [:id, :tag_id, :_destroy])
+          .merge(user: current_user)
   end
 end
