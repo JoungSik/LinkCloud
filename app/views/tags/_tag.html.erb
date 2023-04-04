@@ -1,0 +1,18 @@
+<div class="col">
+  <div class="card">
+    <div class="card-header">
+      <%= tag.name %>
+    </div>
+    <ul class="list-group list-group-flush">
+      <% tag.links.each do |link| %>
+        <li class="list-group-item">
+          <%= link_to link.name, link.url, target: "_blank", class: "link-dark" %>
+        </li>
+      <% end %>
+    </ul>
+    <div class="card-footer">
+      <%= link_to "태그 수정", edit_tag_path(tag), class: "btn btn-primary" %>
+      <%= link_to "태그 삭제", tag, class: "btn btn-danger", data: { "turbo-method": :delete, "turbo-confirm": "정말로 삭제 하시나요?" } %>
+    </div>
+  </div>
+</div>
