@@ -3,9 +3,13 @@
   <%= f.input :url, label: "주소", placeholder: "http:://" %>
   <%= f.input :description, label: "설명" %>
 
-  <%= f.simple_fields_for :taggings do |p| %>
-    <%= p.input :tag_id, label: "분류", collection: Tag.all, as: :radio_buttons,
-                item_label_class: "mx-2", item_wrapper_class: 'btn', include_hidden: false %>
+  <% if current_user.tags.present? %>
+    <%= f.simple_fields_for :taggings do |p| %>
+      <%= p.input :tag_id, label: "분류", collection: current_user.tags, as: :radio_buttons,
+                  item_label_class: "mx-2", item_wrapper_class: 'btn', include_hidden: false %>
+    <% end %>
+  <% else %>
+    <%= link_to "분류 추가", new_tag_path, class: "btn btn-primary mb-3" %>
   <% end %>
 
   <div>

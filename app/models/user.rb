@@ -5,4 +5,5 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :links, dependent: :delete_all
+  has_many :tags, dependent: :delete_all
 end
