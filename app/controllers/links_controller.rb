@@ -4,7 +4,7 @@ class LinksController < ApplicationController
 
   # GET /links or /links.json
   def index
-    @links = Link.includes(:tags)
+    @links = Link.includes(:tags).where(user_id: current_user.id)
   end
 
   # GET /links/1 or /links/1.json
