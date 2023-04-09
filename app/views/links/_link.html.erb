@@ -10,8 +10,8 @@
           <span class="badge bg-info"><%= tag.name %></span>
         <% end %>
       </p>
-      <%= link_to "링크 수정", edit_link_path(link), class: "btn btn-primary" %>
-      <%= link_to "링크 삭제", link, class: "btn btn-danger", data: { "turbo-method": :delete, "turbo-confirm": "정말로 삭제 하시나요?" } %>
+      <%= link_to "링크 수정", edit_link_path(link), class: "btn btn-outline-warning" %>
+      <%= link_to "링크 삭제", link, class: "btn btn-outline-danger", data: { "turbo-method": :delete, "turbo-confirm": "정말로 삭제 하시나요?" } %>
     </div>
   </div>
 </div>
