@@ -1,9 +1,9 @@
 <div class="col">
-  <div class="card">
-    <div class="card-header">
+  <div class="card accordion">
+    <div class="card-header accordion-button" data-bs-toggle="collapse" data-bs-target="#accordion_<%= tag.id %>" aria-expanded="false" aria-controls="accordion_<%= tag.id %>">
       <%= tag.name %>
     </div>
-    <ul class="list-group list-group-flush">
+    <ul id="accordion_<%= tag.id %>" class="list-group list-group-flush accordion-collapse collapse">
       <% tag.links.each do |link| %>
         <li class="list-group-item">
           <%= link_to link.name, link.url, target: "_blank", class: "link-dark" %>
