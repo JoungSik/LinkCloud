@@ -67,6 +67,6 @@ class TagsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def tag_params
-    params.require(:tag).permit(:name).merge(user_id: current_user.id)
+    params.require(:tag).permit(:name, :color).merge(user_id: current_user.id)
   end
 end
