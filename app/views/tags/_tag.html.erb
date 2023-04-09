@@ -1,6 +1,8 @@
 <div class="col">
-  <div class="card accordion">
-    <div class="card-header accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#accordion_<%= tag.id %>" aria-expanded="false" aria-controls="accordion_<%= tag.id %>">
+  <div class="card accordion" style="background-color: <%= tag.color %>">
+    <div class="card-header accordion-button collapsed text-light" style="background-color: <%= tag.color %>"
+         data-bs-toggle="collapse" data-bs-target="#accordion_<%= tag.id %>"
+         aria-expanded="false" aria-controls="accordion_<%= tag.id %>">
       <%= tag.name %>
     </div>
     <ul id="accordion_<%= tag.id %>" class="list-group list-group-flush accordion-collapse collapse">
@@ -11,7 +13,7 @@
       <% end %>
     </ul>
     <div class="card-footer">
-      <%= link_to "태그 수정", edit_tag_path(tag), class: "btn btn-outline-warning" %>
+      <%= link_to "태그 수정", edit_tag_path(tag), class: "btn btn-outline-light" %>
       <%= link_to "태그 삭제", tag, class: "btn btn-outline-danger", data: { "turbo-method": :delete, "turbo-confirm": "정말로 삭제 하시나요?" } %>
     </div>
   </div>
