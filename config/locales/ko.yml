@@ -1,5 +1,19 @@
 ko:
   hello: "안녕 세계"
+  links:
+    create:
+      notice: "링크 생성에 성공 했습니다."
+    update:
+      notice: "링크 수정에 성공 했습니다."
+    destroy:
+      notice: "링크 삭제에 성공 했습니다."
+  tags:
+    create:
+      notice: "태그 생성에 성공 했습니다."
+    update:
+      notice: "태그 수정에 성공 했습니다."
+    destroy:
+      notice: "태그 삭제에 성공 했습니다."
   activerecord:
     errors:
       models:

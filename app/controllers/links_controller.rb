@@ -25,7 +25,7 @@ class LinksController < ApplicationController
   def create
     @link = Link.new(link_params)
     if @link.save
-      redirect_to links_path, notice: "링크 생성에 성공 했습니다."
+      redirect_to links_path, notice: t('.notice')
     else
       render :new, status: :unprocessable_entity
     end
@@ -34,7 +34,7 @@ class LinksController < ApplicationController
   # PATCH/PUT /links/1 or /links/1.json
   def update
     if @link.update(link_params)
-      redirect_to links_path, notice: "링크 수정에 성공 했습니다."
+      redirect_to links_path, notice: t('.notice')
     else
       render :edit, status: :unprocessable_entity
     end
@@ -43,7 +43,7 @@ class LinksController < ApplicationController
   # DELETE /links/1 or /links/1.json
   def destroy
     @link.destroy
-    redirect_to links_url, notice: "링크 삭제에 성공 했습니다."
+    redirect_to links_url, notice: t('.notice')
   end
 
   private
