@@ -19,6 +19,7 @@ class LinksController < ApplicationController
 
   # GET /links/1/edit
   def edit
+    @link.taggings.build if @link.taggings.blank?
   end
 
   # POST /links or /links.json
