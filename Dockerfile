@@ -1,4 +1,4 @@
-FROM ruby:3.0.0
+FROM ruby:3.2.0
 MAINTAINER JoungSik(tjstlr2010@gmail.com)
 
 # Install dependencies

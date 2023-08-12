@@ -1,0 +1,37 @@
+version: '3'
+services:
+  mailcatcher:
+    image: dockage/mailcatcher:0.7.1
+    ports:
+      - "1080:1080"
+      - "1025:1025"
+  db:
+    image: mysql:8.0
+    container_name: linkcloud_db
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DATABASE_PASSWORD}
+      MYSQL_DATABASE: ${DATABASE_NAME}
+      MYSQL_USER: ${DATABASE_USER}
+      MYSQL_PASSWORD: ${DATABASE_PASSWORD}
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    ports:
+      - "13306:3306"
+    volumes:
+      - ${MYSQL_VAR_LIB_DIR}:/var/lib/mysql
+      - ${MYSQL_MY_CNF_DIR}:/etc/mysql/my.cnf
+  app:
+    image: linkcloud:latest
+    command: rails s -e development -p 3000 -b '0.0.0.0'
+    volumes:
+      - .:/linkcloud_app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    links:
+      - db
+      - mailcatcher
+    environment:
+      RAILS_ENV: "development"

@@ -1,0 +1,29 @@
+FROM ruby:3.2.0
+MAINTAINER JoungSik(tjstlr2010@gmail.com)
+
+# Install dependencies
+RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs
+
+# Set an environment variable where the Rails app is installed to inside of Docker image:
+RUN mkdir /run-data
+RUN mkdir -p /linkcloud_app
+RUN mkdir -p /linkcloud_app/tmp
+RUN mkdir -p /linkcloud_app/tmp/pids
+WORKDIR /linkcloud_app
+
+COPY Gemfile /linkcloud_app/Gemfile
+COPY Gemfile.lock /linkcloud_app/Gemfile.lock
+
+# Gems:
+RUN gem install bundler
+RUN bundle config set force_ruby_platform true
+RUN bundle install
+
+# ENV
+ENV RACK_ENV development
+ENV RAILS_ENV development
+
+COPY . /linkcloud_app
+
+EXPOSE 3000
+CMD ["bin/rails", "server", "-b", "0.0.0.0", "-p", "3000"]
